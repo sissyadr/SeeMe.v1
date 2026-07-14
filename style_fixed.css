@@ -150,10 +150,15 @@ nav{
 }
 
 .logo{
-    font-family:'Pacifico',cursive;
-    font-size:2rem;
-    color:var(--accent);
-    -webkit-text-fill-color:currentColor;
+    display: flex;
+    align-items: center;
+}
+
+.logo img{
+    height: 80px;      /* Ubah sesuai ukuran yang diinginkan */
+    width: auto;
+    display: block;
+    object-fit: contain;
 }
 
 nav ul{ display:flex; list-style:none; gap:35px; }
@@ -254,7 +259,7 @@ FEATURED FRAME
     background:rgba(255,255,255,.04);
     backdrop-filter:blur(25px);
     border-radius:30px;
-    padding:22px;
+    padding:10px;
     border:1px solid rgba(255,255,255,.06);
     box-shadow:0 15px 60px rgba(0,0,0,.45);
 }
@@ -280,9 +285,21 @@ FEATURED FRAME
 /*==========================================
 COLLECTIONS
 ==========================================*/
-.themes{ padding:120px 9%; }
-.themes h2{ font-size:3rem; text-align:center; margin-bottom:15px; }
-.section-subtitle{ text-align:center; color:var(--gray); margin-bottom:60px; }
+.themes{
+    padding:120px 9%;
+}
+
+.themes h2{
+    font-size:3rem;
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.section-subtitle{
+    text-align:center;
+    color:var(--gray);
+    margin-bottom:60px;
+}
 
 .theme-grid{
     display:grid;
@@ -293,53 +310,62 @@ COLLECTIONS
 .theme-card{
     position:relative;
     overflow:hidden;
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.06);
-    backdrop-filter:blur(25px);
     border-radius:30px;
+    min-height:380px;
     padding:35px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    color:#fff;
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
     transition:.45s;
+    isolation:isolate;
 }
 
+/* Dark overlay for readability */
 .theme-card::before{
     content:"";
     position:absolute;
-    width:250px;
-    height:250px;
-    border-radius:50%;
-    filter:blur(90px);
-    opacity:.15;
-    right:-80px;
-    top:-80px;
-    background:rgba(255,255,255,.35);
+    inset:0;
+    background:linear-gradient(
+        to top,
+        rgba(0,0,0,.82) 0%,
+        rgba(0,0,0,.45) 45%,
+        rgba(0,0,0,.15) 100%
+    );
+    z-index:-1;
 }
 
 .theme-card:hover{
-    transform:translateY(-12px);
-    border-color:rgba(255,255,255,.18);
-    box-shadow:0 15px 45px rgba(0,0,0,.45);
+    transform:translateY(-12px) scale(1.02);
+    box-shadow:0 20px 45px rgba(0,0,0,.45);
 }
 
-.theme-card span{ font-size:3rem; }
-.theme-card h3{ margin-top:18px; margin-bottom:15px; font-size:1.6rem; }
-.theme-card p{ color:var(--gray); line-height:1.8; margin-bottom:28px; }
-
-.theme-card button{
-    border:none;
-    padding:14px 22px;
-    border-radius:16px;
-    cursor:pointer;
-    color:#0A0A0D;
-    background:linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,255,255,.55));
-    transition:.35s;
+.theme-card h3{
+    font-size:2rem;
+    margin-bottom:15px;
+    color:#fff;
 }
-.theme-card button:hover{ transform:scale(1.05); }
 
-/* keep existing class hooks but monochrome */
-.y2k::before,
-.frutiger::before,
-.gothic::before{ background:rgba(255,255,255,.38); }
+.theme-card p{
+    color:rgba(255,255,255,.88);
+    line-height:1.8;
+}
 
+/* Background Images */
+.theme-card.y2k{
+    background-image:url("assets/y2k-back.jpg");
+}
+
+.theme-card.frutiger{
+    background-image:url("assets/frutiger-back.jpg");
+}
+
+.theme-card.gothic{
+    background-image:url("assets/gothic-back.jpg");
+}
 /*==========================================
 FEATURES
 ==========================================*/
@@ -398,17 +424,35 @@ footer{
     background:rgba(255,255,255,.02);
 }
 
-footer h3{
-    font-family:'Pacifico',cursive;
-    font-size:2.2rem;
-    background:linear-gradient(90deg, rgba(255,255,255,.95), rgba(255,255,255,.55));
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    margin-bottom:12px;
+.footer-logo{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:15px;
 }
 
-footer p{ color:rgba(255,255,255,.78); margin-bottom:10px; }
-footer small{ color:var(--gray); }
+.footer-logo img{
+    height:80px;          /* Ubah menjadi 90px atau 100px jika ingin lebih besar */
+    width:auto;
+    object-fit:contain;
+    display:block;
+    transition:transform .3s ease;
+}
+
+.footer-logo img:hover{
+    transform:scale(1.05);
+}
+
+footer p{
+    color:rgba(255,255,255,.78);
+    margin-bottom:10px;
+    font-size:1rem;
+}
+
+footer small{
+    color:var(--gray);
+    font-size:.9rem;
+}
 
 /*==========================================
 HOVER GLOW
@@ -495,23 +539,33 @@ BUTTON GLOW
 PREVIEW IMAGE
 ==========================================*/
 .frame-preview{
-    background:url("assets/frames/y2k/y2k-01.png");
-    background-size:contain;
-    background-position:center;
-    border-radius:20px;
-    overflow:hidden;
-    padding:18px;
-    display:flex;
-    flex-direction:column;
-    gap:14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgba(255,255,255,.03);
+}
+
+.hero-frame{
+    width: 100%;
+    max-width: 360px;   /* Perbesar atau perkecil sesuai kebutuhan */
+    height: auto;
+    display: block;
+    object-fit: contain;
+    transition: transform .4s ease;
+}
+
+.hero-frame:hover{
+    transform: scale(1.03);
 }
 
 .preview-photo{
-    background:#1a1a1a;
-    border-radius:12px;
-    backdrop-filter:blur(5px);
+    background: #1a1a1a;
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
 }
-
 /*==========================================
 TV GIRL GRAIN
 ==========================================*/
