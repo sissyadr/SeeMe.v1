@@ -1,4 +1,4 @@
-/* ===========================================
+hti/* ===========================================
    SEE ME! V2
    PART 1
 =========================================== */
@@ -17,27 +17,33 @@ html{
 
 :root{
 
-    --bg:#0D0B0B;
+    /* Gothic monochrome palette */
+    --bg:#0A0A0D;
+    --card:#121218;
+    --card2:#191A21;
 
-    --card:#151521;
-
-    --card2:#1F2037;
-
-    --pink:#D70071;
-
-    --pink2:#A13D9D;
-
-    --blue:#0035AA;
+    --accent:#F5F5F7;
+    --accent-dim:rgba(255,255,255,.75);
+    --muted:#BDBDC4;
 
     --white:#F8F8F8;
-
     --gray:#BEBEBE;
 
     --glass:rgba(255,255,255,.05);
+    --border:rgba(255,255,255,.10);
 
-    --border:rgba(255,255,255,.08);
+    --shadow:rgba(0,0,0,.6);
+    --line:rgba(255,255,255,.12);
+    --glow:rgba(255,255,255,.18);
+
+    /* Backward compat (avoid breaking existing rules that reference these) */
+    --pink:var(--accent);
+    --pink2:var(--accent);
+    --blue:var(--accent);
+    --purple:var(--accent);
 
 }
+
 
 body{
 
@@ -64,13 +70,14 @@ body::before{
     position:fixed;
 
     width:600px;
-    height:600px;
 
-    background:#d7007150;
+    height:600px;
+    background:rgba(255,255,255,.10);
 
     filter:blur(180px);
 
     top:-250px;
+
     left:-200px;
 
     z-index:-2;
@@ -86,13 +93,14 @@ body::after{
     position:fixed;
 
     width:700px;
-    height:700px;
 
-    background:#0035aa55;
+    height:700px;
+    background:rgba(255,255,255,.07);
 
     filter:blur(180px);
 
     bottom:-350px;
+
     right:-250px;
 
     z-index:-2;
@@ -100,6 +108,7 @@ body::after{
     animation:blob2 20s infinite ease-in-out;
 
 }
+
 
 @keyframes blob1{
 
@@ -158,8 +167,8 @@ SCROLLBAR
 ::-webkit-scrollbar-thumb{
 
     background:linear-gradient(
-        var(--pink),
-        var(--blue)
+        var(--accent),
+        rgba(255,255,255,.35)
     );
 
     border-radius:100px;
@@ -168,11 +177,10 @@ SCROLLBAR
 
 ::selection{
 
-    background:var(--pink);
-
-    color:white;
-
+    background:rgba(255,255,255,.18);
+    color:#0A0A0D;
 }
+
 
 /*=========================
 FLOATING ICONS
@@ -259,6 +267,47 @@ FLOATING ICONS
 }
 
 /*=========================
+NAVBAR
+=========================*/
+
+nav{
+
+    position:sticky;
+
+    top:0;
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:25px 9%;
+
+    backdrop-filter:blur(25px);
+
+    background:rgba(10,10,13,.72);
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+
+    z-index:999;
+
+}
+
+.logo{
+
+    font-family:'Pacifico',cursive;
+
+    font-size:2rem;
+
+    color:var(--accent);
+
+    -webkit-text-fill-color:currentColor;
+
+}
+
 NAVBAR
 =========================*/
 
