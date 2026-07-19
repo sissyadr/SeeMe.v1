@@ -1,5 +1,6 @@
 /* =====================================================
    SeeMe! Studio — gothic monochrome (black/white)
+   v3 — compact live filter bar above camera, spacious sidebar
 ===================================================== */
 
 /* =========================
@@ -31,11 +32,6 @@ body{
     --radius:22px;
     --radius-sm:14px;
     --ease:cubic-bezier(.4,0,.2,1);
-
-    /* backward compat */
-    --pink:var(--accent);
-    --purple:var(--accent);
-    --blue:var(--accent);
 }
 
 /* =========================
@@ -133,22 +129,26 @@ body::after{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:16px;
+    margin-bottom:12px;
 }
 .panel-title h2{ margin-bottom:0; }
-.panel-title small{ color:var(--gray); font-size:.78rem; }
+.panel-title small{ color:var(--gray); font-size:.76rem; }
+
+.hint-text{
+    font-size:.78rem;
+    color:var(--gray);
+    line-height:1.5;
+    margin-bottom:14px;
+}
+
+/* the Frame panel gets the vertical room freed up by moving filters
+   out of the sidebar, so its thumbnails can breathe more */
+.panel-frame{ flex:1; }
 
 /* =====================================================
-   COLLECTION
+   SHARED OPTION-CARD STYLE (Layout cards)
 ===================================================== */
-.collection-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-}
-.collection-card,
-.layout-card,
-.filter-btn{
+.layout-card{
     border:2px solid transparent;
     background:var(--card2);
     color:white;
@@ -156,30 +156,6 @@ body::after{
     cursor:pointer;
     font-family:inherit;
     transition:.25s var(--ease);
-}
-.collection-card{
-    padding:18px 8px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-}
-.card-icon{ font-size:1.3rem; line-height:1; }
-.collection-card span:last-child,
-.layout-card span:last-child{
-    font-size:.82rem;
-    font-weight:500;
-    text-align:center;
-}
-.collection-card:hover{
-    transform:translateY(-4px);
-    border-color:rgba(255,255,255,.35);
-    box-shadow:0 12px 28px rgba(255,255,255,.12);
-}
-.collection-card.active{
-    background:linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.08));
-    border-color:rgba(255,255,255,.55);
 }
 
 /* =====================================================
@@ -191,14 +167,18 @@ body::after{
     gap:10px;
 }
 .layout-card{
-    padding:18px;
+    padding:20px;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
     gap:8px;
 }
-.layout-card .card-icon{ font-size:1.5rem; }
+.layout-card .card-icon{ font-size:1.6rem; }
+.layout-card span:last-child{
+    font-size:.85rem;
+    font-weight:500;
+}
 .layout-card:hover{
     transform:translateY(-4px);
     border-color:rgba(255,255,255,.35);
@@ -214,7 +194,7 @@ body::after{
 #frameList{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:12px;
+    gap:14px;
 }
 .frame-card{
     background:var(--card2);
@@ -223,6 +203,7 @@ body::after{
     cursor:pointer;
     transition:.25s var(--ease);
     border:2px solid transparent;
+    position:relative;
 }
 .frame-card:hover{ transform:translateY(-4px); }
 .frame-card.active{
@@ -231,7 +212,7 @@ body::after{
 }
 .frame-card img{
     width:100%;
-    height:150px;
+    height:190px;
     object-fit:contain;
     display:block;
     padding:10px;
@@ -243,6 +224,75 @@ body::after{
     font-size:.8rem;
     font-weight:500;
     color:var(--gray);
+}
+
+/* =====================================================
+   LIVE FILTER BAR (compact, sits above the camera)
+===================================================== */
+.filter-bar{
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--border);
+    backdrop-filter:blur(22px);
+    border-radius:18px;
+    padding:14px 16px 12px;
+}
+.filter-bar-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:10px;
+    padding:0 2px;
+}
+.filter-bar-header span{
+    font-size:.86rem;
+    font-weight:600;
+}
+.filter-bar-header small{
+    color:var(--gray);
+    font-size:.72rem;
+    font-weight:500;
+}
+.filter-strip{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:4px;
+    scrollbar-width:thin;
+}
+.filter-strip::-webkit-scrollbar{ height:5px; }
+.filter-chip{
+    flex:0 0 auto;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    border:2px solid transparent;
+    background:var(--card2);
+    color:white;
+    border-radius:999px;
+    cursor:pointer;
+    font-family:inherit;
+    transition:.2s var(--ease);
+    padding:9px 15px;
+    font-size:.78rem;
+    font-weight:500;
+    white-space:nowrap;
+}
+.chip-dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--gray);
+    flex-shrink:0;
+    transition:.2s var(--ease);
+}
+.filter-chip:hover{ border-color:rgba(255,255,255,.32); }
+.filter-chip.active{
+    background:linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.10));
+    border-color:transparent;
+}
+.filter-chip.active .chip-dot{
+    background:var(--accent);
+    box-shadow:0 0 8px rgba(255,255,255,.85);
 }
 
 /* =====================================================
@@ -320,32 +370,12 @@ body::after{
 }
 
 /* =====================================================
-   FILTER
-===================================================== */
-.filter-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-}
-.filter-btn{
-    padding:13px;
-    font-weight:500;
-    font-size:.88rem;
-}
-.filter-btn:hover{ border-color:rgba(255,255,255,.35); }
-.filter-btn.active{
-    background:linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.10));
-    border-color:transparent;
-}
-.filter-btn.locked{ opacity:.4; cursor:not-allowed; }
-
-/* =====================================================
    WORKSPACE
 ===================================================== */
-.workspace{ display:flex; flex-direction:column; gap:20px; }
+.workspace{ display:flex; flex-direction:column; gap:16px; }
 
 /* =====================================================
-   CAMERA
+   CAMERA (live preview is a canvas now, not a raw video)
 ===================================================== */
 .camera-card{
     position:relative;
@@ -355,13 +385,25 @@ body::after{
     overflow:hidden;
     backdrop-filter:blur(20px);
 }
-#video{
+#livePreview{
     width:100%;
     aspect-ratio:4/3;
     display:block;
-    object-fit:cover;
     background:#000;
 }
+
+/* the raw <video> stays in the DOM (so it keeps decoding frames for the
+   live-preview canvas and for full-resolution capture) but is never
+   shown to the user */
+.sr-only-video{
+    position:absolute;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    opacity:0;
+    pointer-events:none;
+}
+
 #countdown{
     position:absolute;
     inset:0;
@@ -496,7 +538,8 @@ body::after{
     to{ opacity:1; transform:translateY(0); }
 }
 .panel,
-.camera-card{ animation:fadeUp .4s var(--ease); }
+.camera-card,
+.filter-bar{ animation:fadeUp .4s var(--ease); }
 
 /* =====================================================
    RESPONSIVE — TABLET
@@ -505,8 +548,6 @@ body::after{
     .studio-content{ grid-template-columns:1fr; }
     .sidebar{ order:2; position:static; }
     .workspace{ order:1; }
-    .collection-grid{ grid-template-columns:repeat(3,1fr); }
-    .layout-grid{ grid-template-columns:repeat(2,1fr); }
     #frameList{ grid-template-columns:repeat(3,1fr); }
 }
 
@@ -517,16 +558,14 @@ body::after{
     .studio{ width:94%; padding:28px 0 56px; }
     .studio-header{ flex-direction:column; align-items:flex-start; gap:16px; }
     .studio-header h1{ font-size:1.9rem; }
-    .collection-grid{ grid-template-columns:1fr 1fr 1fr; }
     #frameList{ grid-template-columns:1fr 1fr; }
-    .filter-grid{ grid-template-columns:1fr 1fr; }
     .camera-action{ flex-direction:column; }
     #startBtn{ width:100%; min-width:unset; }
     .shot-counter{ width:100%; }
     #photostrip{ max-width:100%; }
+    .filter-chip{ padding:8px 12px; font-size:.74rem; }
 }
 
 @media(min-width:1700px){
     .studio{ max-width:1600px; }
 }
-
