@@ -36,14 +36,19 @@ const CONFIG = {
 
   CAMERA_CONSTRAINTS: {
     video: {
-      facingMode: "user",
-      width: { ideal: 1280 },
-      height: { ideal: 720 }
+        facingMode: "user",
+        width: {
+            ideal: 1280,
+            max: 1280
+        },
+        height: {
+            ideal: 960,
+            max: 960
+        }
     },
     audio: false
-  },
-
-  LIVE_PREVIEW_FPS: 15,
+},
+  LIVE_PREVIEW_FPS: 20,
 
   EXPORT_FILENAME_PREFIX: "seeme",
 
@@ -1726,10 +1731,7 @@ async function initializeCamera() {
 
 function startLivePreview() {
 
-  if (
-    !DOM.livePreview ||
-    !liveCtx
-  ) {
+  if (!DOM.livePreview || !liveCtx) {
     return;
   }
 
@@ -1738,33 +1740,53 @@ function startLivePreview() {
     STATE.liveLoop = null;
   }
 
+  /*
+   * IMPORTANT:
+   * Keep the internal live-preview canvas small.
+   *
+   * The CSS can still display the canvas at a large size,
+   * but the filter only processes 480 x 360 pixels.
+   *
+   * This keeps the live camera smooth on Android
+   * without reducing the quality of captured photos.
+   */
+  const PREVIEW_WIDTH = 480;
+  const PREVIEW_HEIGHT = 360;
+
+  /*
+   * Set the internal canvas size ONCE.
+   * Do NOT use devicePixelRatio here.
+   */
+  if (
+    DOM.livePreview.width !== PREVIEW_WIDTH ||
+    DOM.livePreview.height !== PREVIEW_HEIGHT
+  ) {
+    DOM.livePreview.width = PREVIEW_WIDTH;
+    DOM.livePreview.height = PREVIEW_HEIGHT;
+  }
+
   const frameInterval =
     1000 / CONFIG.LIVE_PREVIEW_FPS;
-
 
   function drawLivePreview(timestamp) {
 
     /*
-     * Schedule the next frame
+     * Schedule next frame
      */
     STATE.liveLoop =
       requestAnimationFrame(drawLivePreview);
 
-
     /*
-     * Limit rendering FPS
+     * FPS limiter
      */
     if (
-      timestamp -
-      STATE.lastLiveRender <
+      timestamp - STATE.lastLiveRender <
       frameInterval
     ) {
       return;
     }
 
-    STATE.lastLiveRender =
-      timestamp;
-
+    STATE.lastLiveRender = timestamp;
 
     /*
      * Camera must be ready
@@ -1776,92 +1798,37 @@ function startLivePreview() {
       return;
     }
 
-
     const videoWidth =
       DOM.video.videoWidth;
 
     const videoHeight =
       DOM.video.videoHeight;
 
-
-    if (
-      !videoWidth ||
-      !videoHeight
-    ) {
+    if (!videoWidth || !videoHeight) {
       return;
     }
 
-
     /*
-     * Visible canvas size
+     * IMPORTANT:
+     * Use the INTERNAL canvas dimensions,
+     * not the CSS/display dimensions.
      */
-    const previewWidth =
-      DOM.livePreview.clientWidth ||
-      800;
-
-    const previewHeight =
-      DOM.livePreview.clientHeight ||
-      600;
-
+    const previewWidth = PREVIEW_WIDTH;
+    const previewHeight = PREVIEW_HEIGHT;
 
     /*
-     * Retina / HiDPI support
-     */
-    const dpr =
-      window.devicePixelRatio ||
-      1;
-
-
-    /*
-     * Canvas INTERNAL resolution
+     * Reset transform.
      *
-     * Important:
-     * On a phone, for example:
-     *
-     * CSS = 390 × 292
-     * DPR = 2
-     *
-     * Internal canvas =
-     * 780 × 584
-     */
-    const canvasWidth =
-      Math.round(
-        previewWidth * dpr
-      );
-
-    const canvasHeight =
-      Math.round(
-        previewHeight * dpr
-      );
-
-
-    if (
-      DOM.livePreview.width !==
-      canvasWidth ||
-      DOM.livePreview.height !==
-      canvasHeight
-    ) {
-      DOM.livePreview.width =
-        canvasWidth;
-
-      DOM.livePreview.height =
-        canvasHeight;
-    }
-
-
-    /*
-     * Draw using CSS/display coordinates
-     * while the canvas itself uses DPR resolution.
+     * No devicePixelRatio scaling.
      */
     liveCtx.setTransform(
-      dpr,
+      1,
       0,
       0,
-      dpr,
+      1,
       0,
       0
     );
-
 
     liveCtx.clearRect(
       0,
@@ -1870,28 +1837,23 @@ function startLivePreview() {
       previewHeight
     );
 
-
     /*
      * Cover crop
      */
-    const rect =
-      coverRect(
-        videoWidth,
-        videoHeight,
-        previewWidth,
-        previewHeight,
-        1
-      );
-
+    const rect = coverRect(
+      videoWidth,
+      videoHeight,
+      previewWidth,
+      previewHeight,
+      1
+    );
 
     /*
      * Draw mirrored camera
      */
     liveCtx.save();
 
-    if (
-      CONFIG.MIRROR_CAPTURE
-    ) {
+    if (CONFIG.MIRROR_CAPTURE) {
 
       liveCtx.translate(
         previewWidth,
@@ -1904,59 +1866,42 @@ function startLivePreview() {
       );
     }
 
-
     liveCtx.drawImage(
       DOM.video,
-
       rect.offsetX,
       rect.offsetY,
-
       rect.drawW,
       rect.drawH
     );
 
-
     liveCtx.restore();
 
-
     /*
-     * =================================================
      * APPLY FILTER
      *
-     * IMPORTANT:
-     * getImageData MUST use the INTERNAL
-     * canvas dimensions, NOT CSS dimensions.
+     * Same FILTER_ENGINE.
+     * Same visual effect.
      *
-     * This fixes the "quarter of the filter"
-     * problem on mobile / Retina displays.
-     * =================================================
+     * The only difference is that the live
+     * preview is processed at 480 x 360.
      */
-
     const filterFn =
-      FILTER_ENGINE[
-        STATE.filter
-      ] ||
+      FILTER_ENGINE[STATE.filter] ||
       FILTER_ENGINE.none;
 
-
     if (
-      filterFn !==
-      FILTER_ENGINE.none
+      filterFn !== FILTER_ENGINE.none
     ) {
 
       const imageData =
         liveCtx.getImageData(
           0,
           0,
-          DOM.livePreview.width,
-          DOM.livePreview.height
+          PREVIEW_WIDTH,
+          PREVIEW_HEIGHT
         );
 
-
-      filterFn(
-        imageData
-      );
-
+      filterFn(imageData);
 
       liveCtx.putImageData(
         imageData,
@@ -1966,9 +1911,8 @@ function startLivePreview() {
     }
   }
 
-
   /*
-   * Start the live preview loop
+   * Start live preview
    */
   STATE.liveLoop =
     requestAnimationFrame(
