@@ -132,7 +132,6 @@ const FRAMES = [
     {
         id: "frutiger-oval-01",
         layout: "oval",
-        name: "Frutiger Oval 01",
         file: "assets/frames/oval/frutiger-oval-01.png",
         width: LAYOUT_META.oval.width,
         height: LAYOUT_META.oval.height,
@@ -142,47 +141,16 @@ const FRAMES = [
     {
         id: "gothic-oval-01",
         layout: "oval",
-        name: "Gothic Oval 01",
         file: "assets/frames/oval/gothic-oval-01.png",
         width: LAYOUT_META.oval.width,
         height: LAYOUT_META.oval.height,
         slots: SLOTS_OVAL
     },
 
-    {
-        id: "pride-oval-01",
-        layout: "oval",
-        name: "Pride Oval 01",
-        file: "assets/frames/oval/pride-oval-01.png",
-        width: LAYOUT_META.oval.width,
-        height: LAYOUT_META.oval.height,
-        slots: SLOTS_OVAL
-    },
-
-    {
-        id: "pride-oval-02",
-        layout: "oval",
-        name: "Pride Oval 02",
-        file: "assets/frames/oval/pride-oval-02.png",
-        width: LAYOUT_META.oval.width,
-        height: LAYOUT_META.oval.height,
-        slots: SLOTS_OVAL
-    },
-
-    {
-        id: "pride-oval-03",
-        layout: "oval",
-        name: "Pride Oval 03",
-        file: "assets/frames/oval/pride-oval-03.png",
-        width: LAYOUT_META.oval.width,
-        height: LAYOUT_META.oval.height,
-        slots: SLOTS_OVAL
-    },
 
     {
         id: "y2k-oval-01",
         layout: "oval",
-        name: "Y2K Oval 01",
         file: "assets/frames/oval/y2k-oval-01.png",
         width: LAYOUT_META.oval.width,
         height: LAYOUT_META.oval.height,
@@ -192,7 +160,6 @@ const FRAMES = [
     {
         id: "y2k-oval-02",
         layout: "oval",
-        name: "Y2K Oval 02",
         file: "assets/frames/oval/y2k-oval-02.png",
         width: LAYOUT_META.oval.width,
         height: LAYOUT_META.oval.height,
@@ -202,7 +169,6 @@ const FRAMES = [
     {
         id: "y2k-oval-03",
         layout: "oval",
-        name: "Y2K Oval 03",
         file: "assets/frames/oval/y2k-oval-03.png",
         width: LAYOUT_META.oval.width,
         height: LAYOUT_META.oval.height,
@@ -212,20 +178,144 @@ const FRAMES = [
     {
         id: "y2k-oval-04",
         layout: "oval",
-        name: "Y2K Oval 04",
         file: "assets/frames/oval/y2k-oval-04.png",
         width: LAYOUT_META.oval.width,
         height: LAYOUT_META.oval.height,
         slots: SLOTS_OVAL
     },
 
+    {
+        id: "oval-10",
+        layout: "oval",
+        file: "assets/frames/oval/oval-10.png",
+        width: LAYOUT_META.oval.width,
+        height: LAYOUT_META.oval.height,
+        slots: SLOTS_OVAL
+    },
+
+
+    {
+        id: "oval-12",
+        layout: "oval",
+        file: "assets/frames/oval/oval-12.png",
+        width: LAYOUT_META.oval.width,
+        height: LAYOUT_META.oval.height,
+        slots: SLOTS_OVAL
+    },
+
+    {
+        id: "oval-13",
+        layout: "oval",
+        file: "assets/frames/oval/oval-13.png",
+        width: LAYOUT_META.oval.width,
+        height: LAYOUT_META.oval.height,
+        slots: SLOTS_OVAL
+    },
+
+    {
+        id: "oval-14",
+        layout: "oval",
+        file: "assets/frames/oval/oval-14.png",
+        width: LAYOUT_META.oval.width,
+        height: LAYOUT_META.oval.height,
+        slots: SLOTS_OVAL
+    },
+
+    {
+        id: "oval-15",
+        layout: "oval",
+        file: "assets/frames/oval/oval-15.png",
+        width: LAYOUT_META.oval.width,
+        height: LAYOUT_META.oval.height,
+        slots: SLOTS_OVAL
+    },
+
+    {
+        id: "oval-16",
+        layout: "oval",
+        file: "assets/frames/oval/oval-16.png",
+        width: LAYOUT_META.oval.width,
+        height: LAYOUT_META.oval.height,
+        slots: SLOTS_OVAL
+    },
+
+    {
+        id: "oval-17",
+        layout: "oval",
+        file: "assets/frames/oval/oval-17.png",
+        width: LAYOUT_META.oval.width,
+        height: LAYOUT_META.oval.height,
+        slots: SLOTS_OVAL
+    },
+
+    {
+        id: "oval-18",
+        layout: "oval",
+        file: "assets/frames/oval/oval-18.png",
+        width: LAYOUT_META.oval.width,
+        height: LAYOUT_META.oval.height,
+        slots: SLOTS_OVAL
+    },
+
+    {
+        id: "oval-19",
+        layout: "oval",
+        file: "assets/frames/oval/oval-19.png",
+        width: LAYOUT_META.oval.width,
+        height: LAYOUT_META.oval.height,
+        slots: SLOTS_OVAL
+    },
+
+    {
+        id: "oval-20",
+        layout: "oval",
+        file: "assets/frames/oval/oval-20.png",
+        width: LAYOUT_META.oval.width,
+        height: LAYOUT_META.oval.height,
+        slots: SLOTS_OVAL
+    },
+
+    {
+        id: "oval-21",
+        layout: "oval",
+        file: "assets/frames/oval/oval-21.png",
+        width: LAYOUT_META.oval.width,
+        height: LAYOUT_META.oval.height,
+        slots: SLOTS_OVAL
+    },
+
+    {
+        id: "pride-oval-01",
+        layout: "oval",
+        file: "assets/frames/oval/pride-oval-01.png",
+        width: LAYOUT_META.oval.width,
+        height: LAYOUT_META.oval.height,
+        slots: SLOTS_OVAL
+    },
+
+    {
+        id: "pride-oval-02",
+        layout: "oval",
+        file: "assets/frames/oval/pride-oval-02.png",
+        width: LAYOUT_META.oval.width,
+        height: LAYOUT_META.oval.height,
+        slots: SLOTS_OVAL
+    },
+
+    {
+        id: "pride-oval-03",
+        layout: "oval",
+        file: "assets/frames/oval/pride-oval-03.png",
+        width: LAYOUT_META.oval.width,
+        height: LAYOUT_META.oval.height,
+        slots: SLOTS_OVAL
+    },
 
     /* ================= GRID ================= */
 
     {
         id: "frutiger-grid6-01",
         layout: "grid",
-        name: "Frutiger Grid 01",
         file: "assets/frames/grid/frutiger-grid6-01.png",
         width: LAYOUT_META.grid.width,
         height: LAYOUT_META.grid.height,
@@ -235,7 +325,6 @@ const FRAMES = [
     {
         id: "gothic-grid6-01",
         layout: "grid",
-        name: "Gothic Grid 01",
         file: "assets/frames/grid/gothic-grid6-01.png",
         width: LAYOUT_META.grid.width,
         height: LAYOUT_META.grid.height,
@@ -245,37 +334,16 @@ const FRAMES = [
     {
         id: "pride-grid6-01",
         layout: "grid",
-        name: "Pride Grid 01",
         file: "assets/frames/grid/pride-grid6-01.png",
         width: LAYOUT_META.grid.width,
         height: LAYOUT_META.grid.height,
         slots: SLOTS_GRID
     },
 
-    {
-        id: "pride-grid6-02",
-        layout: "grid",
-        name: "Pride Grid 02",
-        file: "assets/frames/grid/pride-grid6-02.png",
-        width: LAYOUT_META.grid.width,
-        height: LAYOUT_META.grid.height,
-        slots: SLOTS_GRID
-    },
-
-    {
-        id: "pride-grid6-03",
-        layout: "grid",
-        name: "Pride Grid 03",
-        file: "assets/frames/grid/pride-grid6-03.png",
-        width: LAYOUT_META.grid.width,
-        height: LAYOUT_META.grid.height,
-        slots: SLOTS_GRID
-    },
 
     {
         id: "y2k-grid6-01",
         layout: "grid",
-        name: "Y2K Grid 01",
         file: "assets/frames/grid/y2k-grid6-01.png",
         width: LAYOUT_META.grid.width,
         height: LAYOUT_META.grid.height,
@@ -285,7 +353,6 @@ const FRAMES = [
     {
         id: "y2k-grid6-02",
         layout: "grid",
-        name: "Y2K Grid 02",
         file: "assets/frames/grid/y2k-grid6-02.png",
         width: LAYOUT_META.grid.width,
         height: LAYOUT_META.grid.height,
@@ -295,8 +362,16 @@ const FRAMES = [
     {
         id: "y2k-grid6-03",
         layout: "grid",
-        name: "Y2K Grid 03",
         file: "assets/frames/grid/y2k-grid6-03.png",
+        width: LAYOUT_META.grid.width,
+        height: LAYOUT_META.grid.height,
+        slots: SLOTS_GRID
+    },
+
+     {
+        id: "pride-grid6-02",
+        layout: "grid",
+        file: "assets/frames/grid/pride-grid6-02.png",
         width: LAYOUT_META.grid.width,
         height: LAYOUT_META.grid.height,
         slots: SLOTS_GRID
@@ -305,8 +380,97 @@ const FRAMES = [
     {
         id: "y2k-grid6-04",
         layout: "grid",
-        name: "Y2K Grid 04",
         file: "assets/frames/grid/y2k-grid6-04.png",
+        width: LAYOUT_META.grid.width,
+        height: LAYOUT_META.grid.height,
+        slots: SLOTS_GRID
+    },
+
+    {
+        id: "grid6-10",
+        layout: "grid",
+        file: "assets/frames/grid/grid6-10.png",
+        width: LAYOUT_META.grid.width,
+        height: LAYOUT_META.grid.height,
+        slots: SLOTS_GRID
+    },
+
+     {
+        id: "grid6-11",
+        layout: "grid",
+        file: "assets/frames/grid/grid6-11.png",
+        width: LAYOUT_META.grid.width,
+        height: LAYOUT_META.grid.height,
+        slots: SLOTS_GRID
+    },
+
+    {
+        id: "grid6-12",
+        layout: "grid",
+        file: "assets/frames/grid/grid6-12.png",
+        width: LAYOUT_META.grid.width,
+        height: LAYOUT_META.grid.height,
+        slots: SLOTS_GRID
+    },
+
+    {
+        id: "grid6-13",
+        layout: "grid",
+        file: "assets/frames/grid/grid6-13.png",
+        width: LAYOUT_META.grid.width,
+        height: LAYOUT_META.grid.height,
+        slots: SLOTS_GRID
+    },
+
+    {
+        id: "grid6-14",
+        layout: "grid",
+        file: "assets/frames/grid/grid6-14.png",
+        width: LAYOUT_META.grid.width,
+        height: LAYOUT_META.grid.height,
+        slots: SLOTS_GRID
+    },
+
+    {
+        id: "grid6-15",
+        layout: "grid",
+        file: "assets/frames/grid/grid6-15.png",
+        width: LAYOUT_META.grid.width,
+        height: LAYOUT_META.grid.height,
+        slots: SLOTS_GRID
+    },
+
+    {
+        id: "grid6-16",
+        layout: "grid",
+        file: "assets/frames/grid/grid6-16.png",
+        width: LAYOUT_META.grid.width,
+        height: LAYOUT_META.grid.height,
+        slots: SLOTS_GRID
+    },
+
+    {
+        id: "pride-grid6-03",
+        layout: "grid",
+        file: "assets/frames/grid/pride-grid6-03.png",
+        width: LAYOUT_META.grid.width,
+        height: LAYOUT_META.grid.height,
+        slots: SLOTS_GRID
+    },
+
+    {
+        id: "grid6-17",
+        layout: "grid",
+        file: "assets/frames/grid/grid6-17.png",
+        width: LAYOUT_META.grid.width,
+        height: LAYOUT_META.grid.height,
+        slots: SLOTS_GRID
+    },
+
+    {
+        id: "grid6-18",
+        layout: "grid",
+        file: "assets/frames/grid/grid6-18.png",
         width: LAYOUT_META.grid.width,
         height: LAYOUT_META.grid.height,
         slots: SLOTS_GRID
