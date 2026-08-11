@@ -1434,3 +1434,58 @@ body::after {
     }
 
 }
+
+/* =====================================================
+   FRAME PANEL - PREVENT OVERLAPPING
+===================================================== */
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sidebar > .panel {
+    flex-shrink: 0;
+}
+
+.panel-frame {
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* Frame thumbnails have their own scroll area */
+.panel-frame #frameList {
+    max-height: 390px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px;
+    padding-bottom: 4px;
+}
+
+
+/* Scrollbar */
+.panel-frame #frameList::-webkit-scrollbar {
+    width: 5px;
+}
+
+.panel-frame #frameList::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.panel-frame #frameList::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+}
+
+.panel-frame #frameList::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+
+/* Firefox */
+.panel-frame #frameList {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
