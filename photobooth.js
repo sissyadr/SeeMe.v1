@@ -64,7 +64,13 @@ const CONFIG = {
 const LAYOUT_META = {
   oval: { id: "oval", label: "Oval", shotCount: 3, width: 1200, height: 1800 },
   grid6: { id: "grid6", label: "Grid 6", shotCount: 6, width: 1058, height: 1600 },
-  grid4: { id: "grid4", label: "Grid 4", shotCount: 4, width: 736, height: 920 }
+  grid4: {
+  id: "grid4",
+  label: "Grid 4",
+  shotCount: 4,
+  width: 1200,
+  height: 1600
+}
 };
 
 /* =====================================================
@@ -195,10 +201,37 @@ const SLOTS_GRID6 = [
 ];
 
 const SLOTS_GRID4 = [
-  { shape: "rect", x: 31, y: 28, width: 324, height: 404 },
-  { shape: "rect", x: 383, y: 28, width: 324, height: 404 },
-  { shape: "rect", x: 31, y: 473, width: 324, height: 405 },
-  { shape: "rect", x: 383, y: 473, width: 324, height: 405 }
+  {
+    shape: "rect",
+    x: 34,
+    y: 66,
+    width: 552,
+    height: 709
+  },
+
+  {
+    shape: "rect",
+    x: 614,
+    y: 66,
+    width: 552,
+    height: 709
+  },
+
+  {
+    shape: "rect",
+    x: 34,
+    y: 825,
+    width: 552,
+    height: 709
+  },
+
+  {
+    shape: "rect",
+    x: 614,
+    y: 825,
+    width: 552,
+    height: 709
+  }
 ];
 
 /* =====================================================
@@ -231,14 +264,38 @@ const FRAMES = [
     "oval-16", "oval-17", "oval-18", "oval-19", "oval-20", "oval-21",
     "pride-oval-01", "pride-oval-02", "pride-oval-03"
   ]),
+
   ...buildFrames("grid6", [
-    "frutiger-grid6-01", "gothic-grid6-01", "pride-grid6-01",
-    "y2k-grid6-01", "y2k-grid6-02", "y2k-grid6-03",
-    "pride-grid6-02", "y2k-grid6-04",
-    "grid6-10", "grid6-11", "grid6-12", "grid6-13", "grid6-14",
-    "grid6-15", "grid6-16", "pride-grid6-03", "grid6-17", "grid6-18"
+    "frutiger-grid6-01",
+    "gothic-grid6-01",
+    "pride-grid6-01",
+    "y2k-grid6-01",
+    "y2k-grid6-02",
+    "y2k-grid6-03",
+    "pride-grid6-02",
+    "y2k-grid6-04",
+    "grid6-10",
+    "grid6-11",
+    "grid6-12",
+    "grid6-13",
+    "grid6-14",
+    "grid6-15",
+    "grid6-16",
+    "pride-grid6-03",
+    "grid6-17",
+    "grid6-18",
+    "grid6-19"
   ]),
-  ...buildFrames("grid4", ["grid4-01"])
+
+  ...buildFrames("grid4", [
+    "grid4-1",
+    "grid4-2",
+    "grid4-3",
+    "grid4-4",
+    "grid4-5",
+    "grid4-6",
+    "grid4-7"
+  ])
 ];
 
 /* =====================================================
