@@ -1719,6 +1719,11 @@ async function initializeCamera() {
    LIVE PREVIEW
 ===================================================== */
 
+/* =====================================================
+   LIVE PREVIEW
+   Mobile / Retina safe + full-area filter
+===================================================== */
+
 function startLivePreview() {
 
   if (
@@ -1728,31 +1733,26 @@ function startLivePreview() {
     return;
   }
 
-
   if (STATE.liveLoop) {
-    cancelAnimationFrame(
-      STATE.liveLoop
-    );
+    cancelAnimationFrame(STATE.liveLoop);
+    STATE.liveLoop = null;
   }
 
-
   const frameInterval =
-    1000 /
-    CONFIG.LIVE_PREVIEW_FPS;
+    1000 / CONFIG.LIVE_PREVIEW_FPS;
 
 
-  function drawLivePreview(
-    timestamp
-  ) {
+  function drawLivePreview(timestamp) {
 
+    /*
+     * Schedule the next frame
+     */
     STATE.liveLoop =
-      requestAnimationFrame(
-        drawLivePreview
-      );
+      requestAnimationFrame(drawLivePreview);
 
 
     /*
-     * Keep preview around 30 FPS
+     * Limit rendering FPS
      */
     if (
       timestamp -
@@ -1762,11 +1762,13 @@ function startLivePreview() {
       return;
     }
 
-
     STATE.lastLiveRender =
       timestamp;
 
 
+    /*
+     * Camera must be ready
+     */
     if (
       !STATE.cameraReady ||
       DOM.video.readyState < 2
@@ -1790,6 +1792,9 @@ function startLivePreview() {
     }
 
 
+    /*
+     * Visible canvas size
+     */
     const previewWidth =
       DOM.livePreview.clientWidth ||
       800;
@@ -1800,20 +1805,54 @@ function startLivePreview() {
 
 
     /*
-     * Retina / HiDPI
+     * Retina / HiDPI support
      */
     const dpr =
       window.devicePixelRatio ||
       1;
 
 
-    DOM.livePreview.width =
-      previewWidth * dpr;
+    /*
+     * Canvas INTERNAL resolution
+     *
+     * Important:
+     * On a phone, for example:
+     *
+     * CSS = 390 × 292
+     * DPR = 2
+     *
+     * Internal canvas =
+     * 780 × 584
+     */
+    const canvasWidth =
+      Math.round(
+        previewWidth * dpr
+      );
 
-    DOM.livePreview.height =
-      previewHeight * dpr;
+    const canvasHeight =
+      Math.round(
+        previewHeight * dpr
+      );
 
 
+    if (
+      DOM.livePreview.width !==
+      canvasWidth ||
+      DOM.livePreview.height !==
+      canvasHeight
+    ) {
+      DOM.livePreview.width =
+        canvasWidth;
+
+      DOM.livePreview.height =
+        canvasHeight;
+    }
+
+
+    /*
+     * Draw using CSS/display coordinates
+     * while the canvas itself uses DPR resolution.
+     */
     liveCtx.setTransform(
       dpr,
       0,
@@ -1850,7 +1889,6 @@ function startLivePreview() {
      */
     liveCtx.save();
 
-
     if (
       CONFIG.MIRROR_CAPTURE
     ) {
@@ -1882,8 +1920,18 @@ function startLivePreview() {
 
 
     /*
-     * APPLY REAL CANVAS FILTER
+     * =================================================
+     * APPLY FILTER
+     *
+     * IMPORTANT:
+     * getImageData MUST use the INTERNAL
+     * canvas dimensions, NOT CSS dimensions.
+     *
+     * This fixes the "quarter of the filter"
+     * problem on mobile / Retina displays.
+     * =================================================
      */
+
     const filterFn =
       FILTER_ENGINE[
         STATE.filter
@@ -1900,8 +1948,8 @@ function startLivePreview() {
         liveCtx.getImageData(
           0,
           0,
-          previewWidth,
-          previewHeight
+          DOM.livePreview.width,
+          DOM.livePreview.height
         );
 
 
@@ -1916,15 +1964,18 @@ function startLivePreview() {
         0
       );
     }
-
   }
 
 
+  /*
+   * Start the live preview loop
+   */
   STATE.liveLoop =
     requestAnimationFrame(
       drawLivePreview
     );
 }
+
 
 /* =====================================================
    COUNTDOWN / FLASH
